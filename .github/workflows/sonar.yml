@@ -16,17 +16,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.22.2'
-
-      - name: Install dependencies
-        working-directory: ./UPeU_Events
-        run: flutter pub get
-
       - name: Sonar Scan
         uses: SonarSource/sonarqube-scan-action@v5
-        with:
-          projectBaseDir: ./UPeU_Events
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
