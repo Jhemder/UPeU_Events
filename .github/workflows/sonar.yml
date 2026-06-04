@@ -13,25 +13,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # actions/checkout@v4.1.7 (Usando el SHA completo por seguridad)
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           fetch-depth: 0
 
-      # 1. Configurar el entorno de Flutter
+      # subosito/flutter-action@v2.16.0 (Fijando versión y usando SHA)
       - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+        uses: subosito/flutter-action@44ac2d1ecc562bc0cf12fe69b0fa654f62abd78a
         with:
-          channel: 'stable'
+          flutter-version: '3.22.2' # Cambia esta versión por la que estés usando en tu PC si es necesario
 
-      # 2. Descargar paquetes (AQUÍ APUNTAMOS A TU CARPETA)
+      # Descargar paquetes apuntando a tu subcarpeta
       - name: Install dependencies
         working-directory: ./UPeU_Events
         run: flutter pub get
 
-      # 3. Ejecutar el escaneo (AQUÍ TAMBIÉN LE DECIMOS DÓNDE ESTÁ EL PROYECTO)
+      # SonarSource/sonarqube-scan-action@v4.1.0 (Usando SHA completo)
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v4
+        uses: SonarSource/sonarqube-scan-action@516f2c0fb8d20f04c6600021c6ba4d36eb1006fc
         with:
           projectBaseDir: ./UPeU_Events
         env:
