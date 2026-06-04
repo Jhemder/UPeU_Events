@@ -18,19 +18,22 @@ jobs:
         with:
           fetch-depth: 0
 
-      # 1. Configurar el entorno de Flutter en el servidor de GitHub
+      # 1. Configurar el entorno de Flutter
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
 
-      # 2. Descargar los paquetes/dependencias de tu AppEventos
+      # 2. Descargar paquetes (AQUÍ APUNTAMOS A TU CARPETA)
       - name: Install dependencies
+        working-directory: ./UPeU_Events
         run: flutter pub get
 
-      # 3. Ejecutar el escaneo usando tus credenciales actualizadas
+      # 3. Ejecutar el escaneo (AQUÍ TAMBIÉN LE DECIMOS DÓNDE ESTÁ EL PROYECTO)
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v4
+        with:
+          projectBaseDir: ./UPeU_Events
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
