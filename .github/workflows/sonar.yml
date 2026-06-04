@@ -9,17 +9,14 @@ on:
 
 jobs:
   sonarqube:
-    name: SonarQube Scan
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.22.2'
 
@@ -27,10 +24,9 @@ jobs:
         working-directory: ./UPeU_Events
         run: flutter pub get
 
-      - name: SonarQube Scan
+      - name: Sonar Scan
         uses: SonarSource/sonarqube-scan-action@v5
         with:
           projectBaseDir: ./UPeU_Events
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
